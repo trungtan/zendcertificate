@@ -1,21 +1,14 @@
 <?php
+ini_set("session.use_cookies",0);
+ini_set("session.use_only_cookies",0);
+ini_set("session.use_trans_sid",1); # Forgot this one!
+session_start();
+
 require "vendor/autoload.php";
 
-function countAll($arg1){
-    if(func_num_args() == 0){
-        exit("You must specify at least one parameter");
-    } else {
-        $args = func_get_args();
-    }
+$_SESSION['user_id'] = 3;
 
-    ladybug_dump($args);
-
-    array_shift($args);
-    ladybug_dump($args);
-
-    ladybug_dump($arg1);
-
-}
-
-
-countAll('a', 'b', 'c');
+echo session_id(), "<br/>";
+var_dump($_SESSION);
+echo "<br/><br/>";
+var_dump($_GET);
