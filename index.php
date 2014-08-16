@@ -6,17 +6,29 @@
  * Time: 11:25 PM
  */
 
-function handleError($errno, $errstr,$error_file,$error_line)
-{
-    echo "<b>Error:</b> [$errno] $errstr - $error_file:$error_line";
-    echo "<br />";
-    echo "Terminating PHP Script";
-    die();
+class NameException extends Exception { }
+class EmailException extends Exception { }
+
+$name = "";
+$email= "";
+
+try {
+    if (empty($name)) {
+        throw new NameException();
+    }
+    elseif (empty($email)) {
+        throw new EmailException();
+    }
+    else {
+        echo "Name is " . $name . "<br>";
+        echo "Email is " . $email;
+    }
 }
-
-set_error_handler("handleError");
-
-echo $asd;
-
-//$a = new stdClass();
-//echo $a->asd();
+catch (NameException $n) {
+    echo "A name was not provided.";
+    error_log($n->getTraceAsString());
+}
+catch (EmailException $e) {
+    echo "An email address was not provided.";
+    error_log($e->getTraceAsString());
+}
