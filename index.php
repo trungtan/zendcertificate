@@ -1,15 +1,21 @@
 <?php
 require "vendor/autoload.php";
 
-$a = new stdClass();
-$a->pro = 11;
-ladybug_dump($a);
+function countAll($arg1){
+    if(func_num_args() == 0){
+        exit("You must specify at least one parameter");
+    } else {
+        $args = func_get_args();
+    }
 
-function hello(){
-    ladybug_dump($a);
-    $b = "temp b";
+    ladybug_dump($args);
+
+    array_shift($args);
+    ladybug_dump($args);
+
+    ladybug_dump($arg1);
+
 }
 
-hello();
 
-ladybug_dump($a);
+countAll('a', 'b', 'c');
