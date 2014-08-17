@@ -1,14 +1,22 @@
 <?php
-ini_set("session.use_cookies",0);
-ini_set("session.use_only_cookies",0);
-ini_set("session.use_trans_sid",1); # Forgot this one!
-session_start();
 
-require "vendor/autoload.php";
+try {
+    $dsn = 'mysql:host=localhost; dbname=mydrupal';
+    $dbh = new PDO($dsn, 'root', 'root');
 
-$_SESSION['user_id'] = 3;
+    $sql = "SELECT * FROM actions";
 
-echo session_id(), "<br/>";
-var_dump($_SESSION);
-echo "<br/><br/>";
-var_dump($_GET);
+    $results = $dbh->query($sql);
+    $results->setFetchMode(PDO::FETCH_OBJ);
+
+    //var_dump($results);exit;
+    echo "waiting to know does \$result stored all data...";
+    sleep(10);
+
+    foreach( $results as $row){
+        var_dump($row);
+        echo "<br/><br/>";
+    }
+} catch (PDOException $e){
+    echo 'Failed: ' . $e->getMessage();
+}
